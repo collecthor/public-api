@@ -1,0 +1,3 @@
+title: ResponseData
+type: object
+additionalProperties: true

@@ -1,0 +1,14 @@
+title: Organisation
+type: object
+x-examples:
+  example-1: {}
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  created:
+    type: string
+    format: date-time
+  '':
+    type: string

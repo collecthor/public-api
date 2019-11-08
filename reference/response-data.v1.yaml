@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Response data
+  version: '1.0'
+  contact:
+    name: Collecthor BV
+    email: info@collecthor.nl
+    url: 'https://collecthor.nl'
+  description: Public API for the Collecthor Platform
+servers:
+  - url: 'http://localhost:3100'
+    description: Mock
+paths:
+  '/data/project/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: The project ID
+    get:
+      summary: Get response data
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/flatresponseset.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      test: cool
+                      another: cooler
+                    - id: 2
+                      test: cool
+                      another: cooler
+            application/csv:
+              schema:
+                $ref: ../models/flatresponseset.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      test: cool
+                      another: cooler
+                    - id: 2
+                      test: cool
+                      another: cooler
+          headers: {}
+      parameters: []
+      operationId: getProjectData
+      description: Retrieve all data from a project as JSON or CSV
+components:
+  schemas: {}

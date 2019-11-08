@@ -1,0 +1,19 @@
+title: Response
+type: object
+properties:
+  id:
+    type: integer
+  created:
+    type: string
+    format: date-time
+  token:
+    type: string
+  member:
+    $ref: ./member.v1.yaml
+  channel:
+    $ref: ./channel.v1.yaml
+required:
+  - id
+  - created
+  - token
+  - channel

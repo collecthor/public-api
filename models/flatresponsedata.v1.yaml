@@ -1,0 +1,23 @@
+title: FlatResponseData
+type: object
+additionalProperties:
+  type: string
+description: ''
+properties:
+  id:
+    type: integer
+  created:
+    type: string
+    format: date-time
+  channel_id:
+    type: integer
+required:
+  - id
+  - created
+  - channel_id
+x-examples:
+  example-1:
+    value:
+      id: 15
+      created: '2019-13-10 22:22:00'
+      channel_id: 15

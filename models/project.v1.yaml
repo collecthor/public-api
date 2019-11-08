@@ -1,0 +1,14 @@
+title: Project
+type: object
+x-examples:
+  example-1: {}
+properties:
+  id:
+    type: string
+  organisation:
+    $ref: ./organisation.v1.yaml
+  created:
+    type: string
+    format: date-time
+  name:
+    type: string

@@ -1,0 +1,21 @@
+title: Channel
+type: object
+properties:
+  id:
+    type: string
+  project:
+    $ref: ./project.v1.json
+  name:
+    type: string
+  limit:
+    type: integer
+  budget:
+    type: integer
+  clicks:
+    type: integer
+  '':
+    type: string
+required:
+  - id
+  - project
+  - name
