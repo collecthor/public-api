@@ -33,11 +33,11 @@ paths:
               schema:
                 $ref: ../models/flatresponseset.v1.yaml
               xml:
-                wrapped: true 
+                wrapped: true
                 name: responses
           headers: {}
       parameters: []
       operationId: getProjectData
-      description: Retrieve all data from a project as JSON or CSV
+      description: Retrieve all data from a project as JSON or XML
 components:
   schemas: {}
