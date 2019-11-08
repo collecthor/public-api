@@ -9,7 +9,9 @@ info:
   description: Public API for the Collecthor Platform
 servers:
   - url: 'http://localhost:3100'
-    description: Mock
+    description: Stoplight Studio
+  - description: Standalone Prism
+    url: 'http://localhost:4010'
 paths:
   '/data/project/{id}':
     parameters:
