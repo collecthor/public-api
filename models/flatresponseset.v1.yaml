@@ -3,7 +3,6 @@ type: array
 items:
   $ref: ./flatresponsedata.v1.yaml
 description: Set of flattened responses
-x-examples: {}
 xml:
   wrapped: true
   name: responses
