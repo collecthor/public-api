@@ -46,7 +46,12 @@ paths:
                 name: responses
               examples: 
                 example-1:
-                  value: "<responses><response><id>1</id></response></responses>"
+                  value: >
+                    <responses>
+                    <response>
+                    <id>1</id>
+                    </response>
+                    </responses>
           headers: {}
       parameters: []
       operationId: getProjectData
