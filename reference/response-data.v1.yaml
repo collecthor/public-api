@@ -31,21 +31,7 @@ paths:
                 $ref: ../models/flatresponseset.v1.yaml
             application/xml:
               schema:
-                title: FlatResponseSet
-                type: array
-                xml:
-                  wrapped: true
-                  name: responses
-                items:
-                  $ref: ../models/flatresponsedata.v1.yaml
-                description: Set of flattened responses
-                x-examples:
-                  example-1:
-                    value:
-                      - id: 15
-                        created: '2019-13-10 22:22:00'
-                        channel_id: 15
-
+                $ref: ../models/flatresponseset.v1.yaml
           headers: {}
       parameters: []
       operationId: getProjectData

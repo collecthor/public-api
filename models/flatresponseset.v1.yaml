@@ -5,8 +5,6 @@ xml:
   name: responses
 items:
   $ref: ./flatresponsedata.v1.yaml
-  xml: 
-    name: "response"
 description: Set of flattened responses
 x-examples:
   example-1:
