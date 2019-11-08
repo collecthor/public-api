@@ -11,3 +11,4 @@ x-examples:
         channel_id: 15
 xml:
   wrapped: true
+  name: responses
