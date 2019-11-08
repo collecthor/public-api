@@ -35,7 +35,15 @@ paths:
               schema:
                 $ref: ../models/flatresponseset.v1.yaml
           headers: {}
-      parameters: []
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - application/json
+              - application/xml
+          in: header
+          name: Accept
+          description: ''
       operationId: getProjectData
       description: Retrieve all data from a project as JSON or XML
 components:
