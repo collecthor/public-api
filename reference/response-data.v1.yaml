@@ -38,7 +38,7 @@ paths:
                     - id: 2
                       test: cool
                       another: cooler
-            application/csv:
+            application/xml:
               schema:
                 $ref: ../models/flatresponseset.v1.yaml
               examples:

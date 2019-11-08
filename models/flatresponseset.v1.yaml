@@ -9,3 +9,5 @@ x-examples:
       - id: 15
         created: '2019-13-10 22:22:00'
         channel_id: 15
+xml:
+  wrapped: true
