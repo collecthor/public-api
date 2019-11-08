@@ -41,15 +41,12 @@ paths:
             application/xml:
               schema:
                 $ref: ../models/flatresponseset.v1.yaml
-              examples:
+              xml:
+                wrapped: true 
+                name: responses
+              examples: 
                 example-1:
-                  value:
-                    - id: 1
-                      test: cool
-                      another: cooler
-                    - id: 2
-                      test: cool
-                      another: cooler
+                  value: "<responses><response><id>1</id></response></responses>"
           headers: {}
       parameters: []
       operationId: getProjectData
