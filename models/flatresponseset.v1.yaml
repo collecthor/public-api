@@ -1,14 +1,9 @@
 title: FlatResponseSet
 type: array
-xml:
-  wrapped: true
-  name: responses
 items:
   $ref: ./flatresponsedata.v1.yaml
 description: Set of flattened responses
-x-examples:
-  example-1:
-    value:
-      - id: 15
-        created: '2019-13-10 22:22:00'
-        channel_id: 15
+x-examples: {}
+xml:
+  wrapped: true
+  name: responses

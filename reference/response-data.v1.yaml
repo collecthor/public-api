@@ -34,6 +34,8 @@ paths:
             application/json:
               schema:
                 $ref: ../models/flatresponseset.v1.yaml
+              examples:
+                example-1: {}
             application/xml:
               schema:
                 $ref: ../models/flatresponseset.v1.yaml
@@ -42,11 +44,17 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-security:
-  - bearer: []
 components:
   schemas: {}
   securitySchemes:
     bearer:
       type: http
-      scheme: Bearer
+      scheme: bearer
+    apiKey:
+      name: X-API-Key
+      type: apiKey
+      in: header
+security:
+  - bearer: []
+  - apiKey: []
+
