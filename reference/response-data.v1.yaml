@@ -24,6 +24,9 @@ paths:
     get:
       summary: Get response data
       tags: []
+      parameters: []
+      operationId: getProjectData
+      description: Retrieve all data from a project as JSON or XML
       responses:
         '200':
           description: OK
@@ -35,16 +38,15 @@ paths:
               schema:
                 $ref: ../models/flatresponseset.v1.yaml
           headers: {}
-      parameters:
-        - schema:
-            type: string
-            enum:
-              - application/json
-              - application/xml
-          in: header
-          name: Accept
-          description: ''
-      operationId: getProjectData
-      description: Retrieve all data from a project as JSON or XML
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+security:
+  - bearer: []
 components:
   schemas: {}
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: Bearer
