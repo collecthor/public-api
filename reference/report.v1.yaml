@@ -29,6 +29,11 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+        '':
+          headers:
+            header-0:
+              schema:
+                type: string
       parameters:
         - schema:
             type: string
@@ -96,6 +101,38 @@ paths:
       operationId: getSurveyData
       tags: []
       summary: Get response data
+  /api/crossing:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: Crossings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crossing'
+              examples:
+                example-1:
+                  value:
+                    crossings:
+                      rows:
+                        - color: blue
+                          shape: circle
+                        - color: red
+                          shape: triangle
+                      settings: {}
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: survey
+          description: User must have access to the survey identified by this ID
+          required: true
+      description: Fetch availbale crossings in JSON
+      operationId: GetCrossings
 components:
   schemas:
     ExportDef:
@@ -365,6 +402,29 @@ components:
           type: string
         count:
           type: integer
+    Crossing:
+      title: Crossing
+      type: object
+      properties:
+        crossings:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ExportDef'
+          properties:
+            rows:
+              type: array
+              items: {}
+            settings:
+              type: object
+      x-examples:
+        example-1:
+          crossings:
+            rows:
+              - color: blue
+                shape: circle
+              - color: red
+                shape: triangle
+            settings: {}
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
