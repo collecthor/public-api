@@ -163,8 +163,6 @@ components:
       description: Object holding dashboard statistics and report blocks
       type: object
       properties:
-        dashboard:
-          $ref: '#/components/schemas/Dashboard'
         blocks:
           $ref: '#/components/schemas/Blocks'
         selections:
@@ -184,6 +182,22 @@ components:
               type: string
             client:
               type: string
+        theme:
+          type: object
+          properties:
+            colors:
+              type: object
+              properties:
+                main-color:
+                  type: string
+                header-active-color:
+                  type: string
+                header-text-color:
+                  type: string
+            logo:
+              type: string
+        stats:
+          $ref: ../models/stats.v1.yaml
     Dashboard:
       description: Object holding general report statistics
       type: object
