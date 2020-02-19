@@ -197,150 +197,87 @@ components:
             logo:
               type: string
         stats:
-          $ref: ../models/stats.v1.yaml
-    Dashboard:
-      description: Object holding general report statistics
-      type: object
-      properties:
-        completes:
-          description: 'SimpleCount: Counts number of completes from all sources'
-          type: object
-          properties:
-            label:
-              type: string
-            count:
-              type: integer
-        completes_open:
-          description: 'SimpleCount: Counts number of completes from open links'
-          type: object
-          properties:
-            label:
-              type: string
-            count:
-              type: integer
-        invites_sent:
-          description: 'SimpleTable: Rows count different kinds of invitations, total counts their sum'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        invites_bounced:
-          description: 'SimpleTable: Rows count different kinds of bounces, total counts their sum'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        response_percent:
-          description: 'SimpleProportion: Completes / (CompletesOpen.total + InvitesSent.total - InvitesBounced.total)'
-          type: object
-          properties:
-            label:
-              type: string
-            proportion:
-              type: number
-        dropouts_by_question:
-          description: 'SimpleTable: Rows count respondents stuck at each question, total counts all non-completes'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        completed_last:
-          description: 'SimpleText: Last participant datetime'
-          type: object
-          properties:
-            label:
-              type: string
-            text:
-              type: string
-        completed_by_date:
-          description: 'SimpleTable: Rows count completes by date, total counts their sum'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        average_duration:
-          description: 'SimpleCount: Average questionnaire completion duration in seconds with outliers removed'
-          type: object
-          properties:
-            label:
-              type: string
-            count:
-              type: integer
-        average_duration_formatted:
-          description: 'SimpleText: Labelled string containing mm:ss formatted `average_duration`'
-          type: object
-          properties:
-            label:
-              type: string
-            text:
-              type: number
+          $ref: '#/components/schemas/Stats'
     Blocks:
       type: array
+      x-examples:
+        ranking:
+          hash: r1
+          name: Ranking
+          text: Welke aspecten vind je van toepassing?
+          type: ranking_block
+          data:
+            - /api/data/statement?id=123
+            - /api/data/statement?id=234
+            - /api/data/statement?id=345
+          theme:
+            colors:
+              list:
+                - '#fff'
+                - '#ccc'
+                - '#000'
+        compound:
+          hash: m1
+          name: Matrix poly
+          text: Welke aspecten vind je van toepassing?
+          type: compound_block
+          data:
+            - /api/data/statement?id=123
+            - /api/data/statement?id=234
+            - /api/data/statement?id=345
+          theme:
+            colors:
+              list:
+                - '#fff'
+                - '#ccc'
+                - '#000'
+        simple:
+          hash: b
+          name: Simple
+          text: Wat doet het weer?
+          type: simple_block
+          data: /api/data/question?q=1
+          theme:
+            colors:
+              list:
+                - '#fff'
+                - '#ccc'
+                - '#000'
+      description: ''
+      title: ''
       items:
-        anyOf:
-          - description: 'SimpleBlock: Report block for a single variable'
+        type: object
+        properties:
+          hash:
+            description: 'Block name, can be used as the title'
+            type: string
+          name:
+            description: 'Block text, can be used for question text'
+            type: string
+          text:
+            type: string
+            description: Single value enum implementing a const name for this block type (OpenAPI 3.1 provides the const type syntactic sugar)
+          type:
+            type: string
+            description: 'String: Link to the variable data, add optional non-zero selection parameter when making the request'
+            enum:
+              - simple_block
+              - compound_block
+              - ranking_block
+          data:
+            type:
+              - string
+              - array
+            items: {}
+          theme:
             type: object
             properties:
-              block_name:
-                description: 'Block name, can be used as the title'
-                type: string
-              block_text:
-                description: 'Block text, can be used for question text'
-                type: string
-              block_type:
-                description: Single value enum implementing a const name for this block type (OpenAPI 3.1 provides the const type syntactic sugar)
-                type: string
-                enum:
-                  - simple_block
-              block_data:
-                description: 'String: Link to the variable data, add optional non-zero selection parameter when making the request'
-                type: string
-                example: '{baseUrl}/api/data/variable?id=123'
-          - description: 'CompoundBlock: Report block for a multiple variables with assumed identical categories'
-            type: object
-            properties:
-              block_name:
-                description: 'Block name, can be used as the title'
-                type: string
-              block_text:
-                description: 'Block text, can be used for question text'
-                type: string
-              block_type:
-                description: Single value enum implementing a const name for this block type (OpenAPI 3.1 provides the const type syntactic sugar)
-                type: string
-                enum:
-                  - compound_block
-              block_data:
-                description: Array of strings
-                type: array
-                items:
-                  description: 'String: Link to the variable data, add optional non-zero selection parameter when making the request'
-                  type: string
-                  example: '{baseUrl}/api/data/question?id=123'
+              colors:
+                type: object
+                properties:
+                  list:
+                    type: array
+                    items: {}
     Data:
       description: Object holding all report data for the current request
       type: object
@@ -396,26 +333,6 @@ components:
         - value
         - count
         - order
-    SimpleTable:
-      description: "SimpleTable, provides a caption, rows of SimpleCount's, and a total SimpleCount"
-      type: object
-      properties:
-        caption:
-          type: string
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/SimpleCount'
-        total:
-          $ref: '#/components/schemas/SimpleCount'
-    SimpleCount:
-      description: 'SimpleCount, provides a labelled count'
-      type: object
-      properties:
-        label:
-          type: string
-        count:
-          type: integer
     Crossing:
       title: Crossing
       type: object
@@ -439,6 +356,82 @@ components:
               - color: red
                 shape: triangle
             settings: {}
+    Stats:
+      title: Stats
+      type: array
+      x-examples:
+        Without charts:
+          label: Invultijd gem.
+          text: '06:40'
+        With charts:
+          label: Afgerond
+          count: 2850
+          chart:
+            label: Afhakers
+            data:
+              - label: '1'
+                count: 478
+              - label: '2'
+                count: 200
+              - label: '3'
+                count: 50
+              - label: '4'
+                count: 60
+              - label: '5'
+                count: 50
+              - label: '6'
+                count: 0
+              - label: '7'
+                count: 0
+              - label: '8'
+                count: 0
+              - label: '9'
+                count: 0
+              - label: '10'
+                count: 0
+              - label: '11'
+                count: 0
+              - label: '12'
+                count: 0
+              - label: '13'
+                count: 0
+              - label: '14'
+                count: 4
+              - label: '15'
+                count: 12
+      items:
+        anyOf:
+          - properties:
+              label:
+                type: string
+              type:
+                type: string
+          - properties:
+              label:
+                type: string
+              type:
+                type: string
+              chart:
+                type: object
+                properties:
+                  label:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      anyOf:
+                        - properties:
+                            label:
+                              type: string
+                            count:
+                              type: number
+                      type: object
+                  data_type:
+                    type: string
+                    enum:
+                      - numeric
+                      - date
+        type: object
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
