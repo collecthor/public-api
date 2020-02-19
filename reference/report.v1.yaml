@@ -300,47 +300,84 @@ components:
               type: number
     Blocks:
       type: array
+      x-examples:
+        ranking:
+          hash: r1
+          name: Ranking
+          text: Welke aspecten vind je van toepassing?
+          type: ranking_block
+          data:
+            - /api/data/statement?id=123
+            - /api/data/statement?id=234
+            - /api/data/statement?id=345
+          theme:
+            colors:
+              list:
+                - '#fff'
+                - '#ccc'
+                - '#000'
+        compound:
+          hash: m1
+          name: Matrix poly
+          text: Welke aspecten vind je van toepassing?
+          type: compound_block
+          data:
+            - /api/data/statement?id=123
+            - /api/data/statement?id=234
+            - /api/data/statement?id=345
+          theme:
+            colors:
+              list:
+                - '#fff'
+                - '#ccc'
+                - '#000'
+        simple:
+          hash: b
+          name: Simple
+          text: Wat doet het weer?
+          type: simple_block
+          data: /api/data/question?q=1
+          theme:
+            colors:
+              list:
+                - '#fff'
+                - '#ccc'
+                - '#000'
+      description: ''
+      title: ''
       items:
-        anyOf:
-          - description: 'SimpleBlock: Report block for a single variable'
+        type: object
+        properties:
+          hash:
+            description: 'Block name, can be used as the title'
+            type: string
+          name:
+            description: 'Block text, can be used for question text'
+            type: string
+          text:
+            type: string
+            description: Single value enum implementing a const name for this block type (OpenAPI 3.1 provides the const type syntactic sugar)
+          type:
+            type: string
+            description: 'String: Link to the variable data, add optional non-zero selection parameter when making the request'
+            enum:
+              - simple_block
+              - compound_block
+              - ranking_block
+          data:
+            type:
+              - string
+              - array
+            items: {}
+          theme:
             type: object
             properties:
-              block_name:
-                description: 'Block name, can be used as the title'
-                type: string
-              block_text:
-                description: 'Block text, can be used for question text'
-                type: string
-              block_type:
-                description: Single value enum implementing a const name for this block type (OpenAPI 3.1 provides the const type syntactic sugar)
-                type: string
-                enum:
-                  - simple_block
-              block_data:
-                description: 'String: Link to the variable data, add optional non-zero selection parameter when making the request'
-                type: string
-                example: '{baseUrl}/api/data/variable?id=123'
-          - description: 'CompoundBlock: Report block for a multiple variables with assumed identical categories'
-            type: object
-            properties:
-              block_name:
-                description: 'Block name, can be used as the title'
-                type: string
-              block_text:
-                description: 'Block text, can be used for question text'
-                type: string
-              block_type:
-                description: Single value enum implementing a const name for this block type (OpenAPI 3.1 provides the const type syntactic sugar)
-                type: string
-                enum:
-                  - compound_block
-              block_data:
-                description: Array of strings
-                type: array
-                items:
-                  description: 'String: Link to the variable data, add optional non-zero selection parameter when making the request'
-                  type: string
-                  example: '{baseUrl}/api/data/question?id=123'
+              colors:
+                type: object
+                properties:
+                  list:
+                    type: array
+                    items: {}
     Data:
       description: Object holding all report data for the current request
       type: object
