@@ -197,107 +197,7 @@ components:
             logo:
               type: string
         stats:
-          $ref: ../models/stats.v1.yaml
-    Dashboard:
-      description: Object holding general report statistics
-      type: object
-      properties:
-        completes:
-          description: 'SimpleCount: Counts number of completes from all sources'
-          type: object
-          properties:
-            label:
-              type: string
-            count:
-              type: integer
-        completes_open:
-          description: 'SimpleCount: Counts number of completes from open links'
-          type: object
-          properties:
-            label:
-              type: string
-            count:
-              type: integer
-        invites_sent:
-          description: 'SimpleTable: Rows count different kinds of invitations, total counts their sum'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        invites_bounced:
-          description: 'SimpleTable: Rows count different kinds of bounces, total counts their sum'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        response_percent:
-          description: 'SimpleProportion: Completes / (CompletesOpen.total + InvitesSent.total - InvitesBounced.total)'
-          type: object
-          properties:
-            label:
-              type: string
-            proportion:
-              type: number
-        dropouts_by_question:
-          description: 'SimpleTable: Rows count respondents stuck at each question, total counts all non-completes'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        completed_last:
-          description: 'SimpleText: Last participant datetime'
-          type: object
-          properties:
-            label:
-              type: string
-            text:
-              type: string
-        completed_by_date:
-          description: 'SimpleTable: Rows count completes by date, total counts their sum'
-          type: object
-          properties:
-            caption:
-              type: string
-            rows:
-              type: array
-              items:
-                $ref: '#/components/schemas/SimpleCount'
-            total:
-              $ref: '#/components/schemas/SimpleCount'
-        average_duration:
-          description: 'SimpleCount: Average questionnaire completion duration in seconds with outliers removed'
-          type: object
-          properties:
-            label:
-              type: string
-            count:
-              type: integer
-        average_duration_formatted:
-          description: 'SimpleText: Labelled string containing mm:ss formatted `average_duration`'
-          type: object
-          properties:
-            label:
-              type: string
-            text:
-              type: number
+          $ref: '#/components/schemas/Stats'
     Blocks:
       type: array
       x-examples:
@@ -433,26 +333,6 @@ components:
         - value
         - count
         - order
-    SimpleTable:
-      description: "SimpleTable, provides a caption, rows of SimpleCount's, and a total SimpleCount"
-      type: object
-      properties:
-        caption:
-          type: string
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/SimpleCount'
-        total:
-          $ref: '#/components/schemas/SimpleCount'
-    SimpleCount:
-      description: 'SimpleCount, provides a labelled count'
-      type: object
-      properties:
-        label:
-          type: string
-        count:
-          type: integer
     Crossing:
       title: Crossing
       type: object
@@ -476,6 +356,82 @@ components:
               - color: red
                 shape: triangle
             settings: {}
+    Stats:
+      title: Stats
+      type: array
+      x-examples:
+        Without charts:
+          label: Invultijd gem.
+          text: '06:40'
+        With charts:
+          label: Afgerond
+          count: 2850
+          chart:
+            label: Afhakers
+            data:
+              - label: '1'
+                count: 478
+              - label: '2'
+                count: 200
+              - label: '3'
+                count: 50
+              - label: '4'
+                count: 60
+              - label: '5'
+                count: 50
+              - label: '6'
+                count: 0
+              - label: '7'
+                count: 0
+              - label: '8'
+                count: 0
+              - label: '9'
+                count: 0
+              - label: '10'
+                count: 0
+              - label: '11'
+                count: 0
+              - label: '12'
+                count: 0
+              - label: '13'
+                count: 0
+              - label: '14'
+                count: 4
+              - label: '15'
+                count: 12
+      items:
+        anyOf:
+          - properties:
+              label:
+                type: string
+              type:
+                type: string
+          - properties:
+              label:
+                type: string
+              type:
+                type: string
+              chart:
+                type: object
+                properties:
+                  label:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      anyOf:
+                        - properties:
+                            label:
+                              type: string
+                            count:
+                              type: number
+                      type: object
+                  data_type:
+                    type: string
+                    enum:
+                      - numeric
+                      - date
+        type: object
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
