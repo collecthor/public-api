@@ -1,5 +1,44 @@
-title: Member
 type: object
+title: Member
+additionalProperties: false
+description: A panel member with some fixed field and a data object that contains custom user data
 properties:
   id:
+    type: integer
+  panel_id:
+    type: integer
+  created:
     type: string
+    format: date-time
+  deleted:
+    type:
+      - string
+      - 'null'
+    format: date-time
+    description: |
+      The moment of deletion, null if member is active
+  mailed:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  interval:
+    type: integer
+  logged_in:
+    type: string
+    format: date-time
+  balance:
+    type: integer
+    description: Balance of the member in points
+  data:
+    type: object
+required:
+  - id
+  - panel_id
+  - created
+  - deleted
+  - mailed
+  - interval
+  - logged_in
+  - balance
+  - data

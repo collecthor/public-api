@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Response data
-  version: '1.0'
+  title: Collecthor API
+  version: '2.0'
   contact:
     name: Collecthor BV
     email: info@collecthor.nl
@@ -13,35 +13,69 @@ servers:
   - description: Standalone Prism
     url: 'http://localhost:4010'
 paths:
-  '/data/project/{id}':
+  '/panels/{panelId}/members':
     parameters:
       - schema:
-          type: string
-        name: id
+          type: integer
+        name: panelId
         in: path
         required: true
-        description: The project ID
+        description: 'ID of the panel for which to retrieve members '
     get:
-      summary: Get response data
+      summary: Retrieve member data
       tags: []
-      parameters: []
-      operationId: getProjectData
-      description: Retrieve all data from a project as JSON or XML
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-pagination-total-count:
+              schema:
+                type: integer
+            x-pagination-page-count:
+              schema:
+                type: integer
+            x-pagination-current-page:
+              schema:
+                type: integer
+            x-pagination-per-page:
+              schema:
+                type: integer
+            link:
+              schema:
+                type: string
+              description: 'Links to self, next, previous and last pages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../models/member.v1.yaml
+      operationId: get-panels-panelId-members
+      description: 'Returns members in a panel, pagination happens via headers, response types are JSON or CSV'
+      parameters:
+        - schema:
+            type: number
+          in: header
+          name: x-pagination-per-page
+          description: Number of records to return per page
+  '/members/{memberId}':
+    parameters:
+      - schema:
+          type: integer
+        name: memberId
+        in: path
+        required: true
+    get:
+      summary: Retrieve individual member
+      tags: []
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: ../models/flatresponseset.v1.yaml
-            application/xml:
-              schema:
-                $ref: ../models/flatresponseset.v1.yaml
-          headers: {}
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
+                $ref: ../models/member.v1.yaml
+      operationId: get-members-memberId
 components:
   schemas: {}
   securitySchemes:
@@ -55,4 +89,3 @@ components:
 security:
   - bearer: []
   - apiKey: []
-
