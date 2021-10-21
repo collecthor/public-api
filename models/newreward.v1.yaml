@@ -1,0 +1,21 @@
+title: NewReward
+type: object
+properties:
+  amount:
+    type: integer
+  member_id:
+    type: integer
+  reason:
+    type: string
+    description: Should contain a textual description such that the panel member can identify the tasks for which the reward was received.
+  response_id:
+    type:
+      - integer
+      - 'null'
+    description: 'The id of a response, if this reward is related to a response.'
+  '':
+    type: string
+required:
+  - amount
+  - member_id
+  - reason

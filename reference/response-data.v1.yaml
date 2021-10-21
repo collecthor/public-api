@@ -8,10 +8,8 @@ info:
     url: 'https://collecthor.nl'
   description: Public API for the Collecthor Platform
 servers:
-  - url: 'http://localhost:3100'
-    description: Stoplight Studio
-  - description: Standalone Prism
-    url: 'http://localhost:4010'
+  - description: Production
+    url: 'https://app.collecthor.nl'
 paths:
   '/panels/{panelId}/members':
     parameters:
@@ -76,6 +74,89 @@ paths:
               schema:
                 $ref: ../models/member.v1.yaml
       operationId: get-members-memberId
+    patch:
+      summary: ''
+      operationId: patch-members-memberId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/member.v1.yaml
+      description: |-
+        This will update only the given attributes, ignoring other attributes.
+        When updating data a recursive merge strategy is used.
+    put:
+      summary: ''
+      operationId: put-members-memberId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/member.v1.yaml
+      description: |-
+        This will update only given attributes, ignoring other attributes.
+        When updating data the current data is fully replaced.
+  /panels:
+    get:
+      summary: Get all panels
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../models/panel.v1.yaml
+      operationId: get-panels
+  /members:
+    post:
+      summary: Create member
+      operationId: post-members
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/member.v1.yaml
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/newmember.v1.yaml
+        description: ''
+  /rewards:
+    post:
+      summary: Create a new reward
+      operationId: post-rewards
+      responses:
+        '200':
+          description: OK
+    get:
+      summary: Get rewards for a member
+      operationId: get-rewards
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../models/reward.v1.yaml
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: member_id
+          description: Id of the member for which to retrieve rewards
+          required: true
 components:
   schemas: {}
   securitySchemes:

@@ -1,0 +1,25 @@
+type: object
+title: NewMember
+additionalProperties: false
+description: A new panel member that is to be created
+properties:
+  panel_id:
+    type: integer
+    writeOnly: true
+  interval:
+    type: integer
+  data:
+    type:
+      - object
+      - 'null'
+  email:
+    type: string
+    format: email
+    writeOnly: true
+  name:
+    type: string
+required:
+  - panel_id
+  - interval
+  - email
+  - name

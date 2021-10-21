@@ -1,0 +1,41 @@
+title: panel.v1.yaml
+type: object
+properties:
+  id:
+    type: integer
+  name:
+    type: string
+  created_by:
+    type: integer
+  organisation_id:
+    type: integer
+  reward_euro:
+    type: integer
+  reward_screenout:
+    type: integer
+  reward_quota:
+    type: integer
+  reward_login:
+    type: integer
+  reward_click:
+    type: integer
+  deleted:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  user_id:
+    type: integer
+  host:
+    type: string
+    format: hostname
+required:
+  - id
+  - name
+  - created_by
+  - organisation_id
+  - reward_euro
+  - reward_screenout
+  - reward_quota
+  - reward_login
+  - reward_click
