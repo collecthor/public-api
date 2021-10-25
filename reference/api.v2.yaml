@@ -75,7 +75,7 @@ paths:
                 $ref: ../models/member.v1.yaml
       operationId: get-members-memberId
     patch:
-      summary: ''
+      summary: Partially update Member
       operationId: patch-members-memberId
       responses:
         '200':
@@ -88,7 +88,7 @@ paths:
         This will update only the given attributes, ignoring other attributes.
         When updating data a recursive merge strategy is used.
     put:
-      summary: ''
+      summary: Update Member
       operationId: put-members-memberId
       responses:
         '200':
@@ -100,20 +100,6 @@ paths:
       description: |-
         This will update only given attributes, ignoring other attributes.
         When updating data the current data is fully replaced.
-  /panels:
-    get:
-      summary: Get all panels
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: ../models/panel.v1.yaml
-      operationId: get-panels
   /members:
     post:
       summary: Create member
@@ -138,25 +124,6 @@ paths:
       responses:
         '200':
           description: OK
-    get:
-      summary: Get rewards for a member
-      operationId: get-rewards
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: ../models/reward.v1.yaml
-      parameters:
-        - schema:
-            type: integer
-          in: query
-          name: member_id
-          description: Id of the member for which to retrieve rewards
-          required: true
 components:
   schemas: {}
   securitySchemes:
