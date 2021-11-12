@@ -8,6 +8,7 @@ properties:
     writeOnly: true
   interval:
     type: integer
+    default: 0
   data:
     type:
       - object
@@ -20,6 +21,4 @@ properties:
     type: string
 required:
   - panel_id
-  - interval
   - email
-  - name

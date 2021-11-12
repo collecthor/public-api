@@ -87,6 +87,20 @@ paths:
       description: |-
         This will update only the given attributes, ignoring other attributes.
         When updating data a recursive merge strategy is used.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/UpdateMember.v1.yaml
+            examples:
+              example-1:
+                value:
+                  deleted: '2019-08-24T14:15:22Z'
+                  mailed: '2019-08-24T14:15:22Z'
+                  interval: 0
+                  logged_in: '2019-08-24T14:15:22Z'
+                  data: {}
+        description: ''
     put:
       summary: Update Member
       operationId: put-members-memberId
@@ -100,6 +114,11 @@ paths:
       description: |-
         This will update only given attributes, ignoring other attributes.
         When updating data the current data is fully replaced.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/UpdateMember.v1.yaml
   /members:
     post:
       summary: Create member
@@ -115,7 +134,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/newmember.v1.yaml
+              $ref: ../models/NewMember.v1.yaml
         description: ''
   /rewards:
     post:

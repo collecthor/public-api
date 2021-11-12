@@ -1,0 +1,37 @@
+type: object
+title: UpdateMember
+additionalProperties: false
+description: |-
+  A panel member with some fixed fields and a data object that contains custom user data
+  All fields are optional, omitting a field will ignore it in the update. Setting it to `null` explicitly will set it to `null` if that value is supported.
+properties:
+  deleted:
+    type:
+      - string
+      - 'null'
+    format: date-time
+    description: |
+      The moment of deletion, null if member is active
+    readOnly: true
+  mailed:
+    type:
+      - string
+      - 'null'
+    format: date-time
+    description: Timestamp for when this member was last mailed
+    readOnly: true
+  interval:
+    type: integer
+    description: |-
+      The minimum number of days between an email. Set to 0 for no limit.
+      1 means 1 per day, 2 means 1 per 2 days, etc
+  logged_in:
+    type: string
+    format: date-time
+    description: 'Timestamp for when this user last logged in, this is used for tracking active users.'
+  data:
+    type:
+      - object
+      - 'null'
+    description: |
+      The background variables for this user
