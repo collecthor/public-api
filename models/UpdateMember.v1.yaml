@@ -12,21 +12,21 @@ properties:
     format: date-time
     description: |
       The moment of deletion, null if member is active
-    readOnly: true
   mailed:
     type:
       - string
       - 'null'
     format: date-time
     description: Timestamp for when this member was last mailed
-    readOnly: true
   interval:
     type: integer
     description: |-
       The minimum number of days between an email. Set to 0 for no limit.
       1 means 1 per day, 2 means 1 per 2 days, etc
   logged_in:
-    type: string
+    type: 
+      - string
+      - 'null'    
     format: date-time
     description: 'Timestamp for when this user last logged in, this is used for tracking active users.'
   data:
