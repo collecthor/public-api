@@ -9,7 +9,7 @@ info:
   description: Public API for the Collecthor Platform
 servers:
   - description: Production
-    url: 'https://app.collecthor.nl'
+    url: 'https://app.collecthor.nl/v2'
 paths:
   '/panels/{panelId}/members':
     parameters:
