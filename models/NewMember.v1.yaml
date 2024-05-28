@@ -8,6 +8,7 @@ properties:
     writeOnly: true
   interval:
     type: integer
+    minimum: 0
     default: 0
   data:
     type:
@@ -19,6 +20,11 @@ properties:
     writeOnly: true
   name:
     type: string
+  verified:
+    type:
+      - string
+      - 'null'
+    format: date-time
 required:
   - panel_id
   - email

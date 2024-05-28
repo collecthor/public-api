@@ -29,8 +29,11 @@ properties:
   interval:
     type: integer
   logged_in:
-    type: string
+    type:
+      - string
+      - 'null'
     format: date-time
+    readOnly: true
   balance:
     type: integer
     description: Balance of the member in points
